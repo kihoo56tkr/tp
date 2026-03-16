@@ -80,7 +80,13 @@ public class Person {
             return false;
         }
 
-        return otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail());
+        // Extract only digits from phone numbers for comparison
+        String thisPhoneDigits = extractDigits(this.phone.value);
+        String otherPhoneDigits = extractDigits(otherPerson.phone.value);
+
+        // Check if phone digits match OR email matches
+        return thisPhoneDigits.equals(otherPhoneDigits)
+                || otherPerson.getEmail().equals(getEmail());
     }
 
     /**
@@ -105,6 +111,14 @@ public class Person {
                 && address.equals(otherPerson.address)
                 && notes.equals(otherPerson.notes)
                 && tags.equals(otherPerson.tags);
+    }
+
+    /**
+     * Extracts only numeric digits from a phone string.
+     * Removes +, -, spaces, and any other non-digit characters.
+     */
+    private String extractDigits(String phoneString) {
+        return phoneString.replaceAll("[^0-9]", "");
     }
 
     @Override

@@ -63,16 +63,29 @@ public class ArgumentTokenizer {
      * is valid if there is a whitespace before {@code prefix}. Returns -1 if no
      * such occurrence can be found.
      *
-     * E.g if {@code argsString} = "e/hip/900", {@code prefix} = "p/" and
-     * {@code fromIndex} = 0, this method returns -1 as there are no valid
-     * occurrences of "p/" with whitespace before it. However, if
-     * {@code argsString} = "e/hi p/900", {@code prefix} = "p/" and
-     * {@code fromIndex} = 0, this method returns 5.
+     * Examples:
+     * If {@code argsString} = "add -n John -p 123", {@code prefix} = "-p" and
+     * {@code fromIndex} = 0, this method returns 12 (index of ' -p').
+     *
+     * If {@code argsString} = "add -nJohn -p123", {@code prefix} = "-p" and
+     * {@code fromIndex} = 0, this method returns -1 as there is no whitespace
+     * before "-p" (it's attached to the previous value).
+     *
+     * If {@code argsString} = "add -n John -p123", {@code prefix} = "-p" and
+     * {@code fromIndex} = 0, this method returns -1 as there is no whitespace
+     * before "-p".
      */
     private static int findPrefixPosition(String argsString, String prefix, int fromIndex) {
-        int prefixIndex = argsString.indexOf(" " + prefix, fromIndex);
-        return prefixIndex == -1 ? -1
-                : prefixIndex + 1; // +1 as offset for whitespace
+        int prefixIndex = argsString.indexOf(" " + prefix + " ", fromIndex); // Require space after too
+        if (prefixIndex == -1) {
+            // Also check for prefix at the end of string
+            prefixIndex = argsString.indexOf(" " + prefix, fromIndex);
+            if (prefixIndex != -1 && prefixIndex + prefix.length() + 1 == argsString.length()) {
+                return prefixIndex + 1;
+            }
+            return -1;
+        }
+        return prefixIndex + 1;
     }
 
     /**
