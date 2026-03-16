@@ -10,14 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should not be blank, should not exceed 100 characters, "
-                    + "and can only contain printable characters (no tabs, newlines, or control characters).";
+            "Names should not be blank, should not exceed 100 characters";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "(?s)(?!\\s*$)[\\\\p{Print}]{1,100}";
+    public static final String VALIDATION_REGEX = "(?s)(?!\\s*$)[\\p{Print}]{1,100}";
 
     public final String fullName;
 
@@ -38,7 +37,6 @@ public class Name {
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {
