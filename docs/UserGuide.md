@@ -132,6 +132,14 @@ add --name=NAME --phone=PHONE_NUMBER --email=EMAIL --address=ADDRESS [--notes=NO
 * Linkline rejects duplicates. Two clients are considered duplicates if they share the same email address (case-insensitive) or the same phone number after ignoring spaces and hyphens.
 * After a successful `add`, Linkline shows the full client list again.
 
+<box type="info" seamless>
+
+**Tag Behaviour:**
+- Tags are **case-insensitive** – `AC` and `ac` refer to the same tag.
+- Duplicate tags are **automatically ignored** – adding `--tag=AC --tag=ac` results in a single `AC` tag.
+- A client cannot have the same tag twice.
+</box>
+
 Examples:
 
 * `add --name=John Tan --phone=9123 4567 --email=johntan@example.com --address=123 Clementi Rd, #04-05`
@@ -248,6 +256,12 @@ view INDEX
 
 * The index refers to the index number shown in the current displayed client list.
 * The index must be a positive integer such as `1`, `2`, or `3`.
+
+<box type="tip" seamless>
+
+**Note:** The blue highlight is guaranteed after `view`. It may disappear after commands like `list` or `find`.  
+If the details panel is already showing the client, `view INDEX` will not restore the highlight. To restore it, view a different client first, then view the original client again.
+</box>
 
 Example result after a `view` command:
 ![view command result](images/viewCommandResult.png)
