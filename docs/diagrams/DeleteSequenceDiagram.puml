@@ -53,12 +53,12 @@ activate DeleteCommand
 
 DeleteCommand -> Model : getFilteredPersonList()
 activate Model
-Model --> DeleteCommand : personList
+Model --> DeleteCommand : lastShownList
 deactivate Model
 
 note right of DeleteCommand
 Reads the target client
-from the returned list
+from lastShownList
 end note
 
 create DeletePendingAction
@@ -76,6 +76,7 @@ deactivate CommandResult
 
 DeleteCommand --> LogicManager : result
 deactivate DeleteCommand
+destroy DeleteCommand
 
 LogicManager -> CommandResult : hasPendingAction()
 activate CommandResult
@@ -86,6 +87,7 @@ LogicManager -> CommandResult : getPendingAction()
 activate CommandResult
 CommandResult --> LogicManager : pendingAction
 deactivate CommandResult
+destroy CommandResult
 
 note right of LogicManager : store pendingAction
 
