@@ -194,7 +194,7 @@ edit INDEX [--name=NAME] [--phone=PHONE_NUMBER] [--email=EMAIL] [--address=ADDRE
 * Any field you provide replaces the client's current value for that field.
 * Editing tags is not cumulative. If you provide `--tag=`, Linkline replaces the client's entire tag list with the tags
   you supplied.
-* Use `--tag=` with no value to clear all tags.
+* Use `--tag=` with no value to clear all tags (cannot be combined with other `--tag=` fields in the same command).
 * Use `--notes=` with no value to clear notes.
 * Linkline rejects edits that would make the client duplicate another existing client.
 
@@ -222,6 +222,13 @@ delete INDEX
 * Any other command, including an invalid command, provided after the first `delete` command cancels the pending
   deletion.
 
+<box type="tip" seamless>
+
+**Tip:** After the first `delete 1`, commands such as `delete 1` and `delete 01` both confirm the deletion because
+Linkline compares the parsed index value. Leading/trailing spaces and spaces between the command word and index are
+ignored. Numbers with leading zeros (e.g., '01', '001') also confirm the deletion.
+</box>
+
 Examples:
 
 * `delete 1` followed by `find --name=Bernice`
@@ -234,13 +241,6 @@ Example result after a `delete` command (with confirmation):
 ![pending delete command result](images/pendingDeleteCommandResult.png)
 
 ![confirmed delete command result](images/confirmedDeleteCommandResult.png)
-
-<box type="tip" seamless>
-
-**Tip:** After the first `delete 1`, commands such as `delete 1` and `delete 01` both confirm the deletion because
-Linkline compares the parsed index value. Leading/trailing spaces and spaces between the command word and index are
-ignored. Numbers with leading zeros (e.g., '01', '001') also confirm the deletion.
-</box>
 
 ### Clearing all entries: `clear`
 
@@ -310,7 +310,7 @@ Searches the currently displayed list for clients whose name, phone number, emai
 matches at least one supplied query. Uses `OR` matching across all supplied queries and fields.
 
 `find` will only search based on the clients currently in the displayed list. \
-Both `find` and `filtertag` commands can be used to narrow down the current list. \
+Both `find` and `filtertag` commands can be used to narrow down the current list.
 
 Use `list` when you want to search from the full client list again.
 
@@ -407,10 +407,10 @@ Examples:
 
 <box type="warning" seamless>
 
-**Warning:** The `copyaddr` command copies the address based on the current displayed index. The copied address may
+**Warning:** The `copyaddr` command copies the address based on the current **displayed index**. The copied address may
 become outdated if:
 
-- The client list changes (e.g., via `list` or `find`), causing the index to point to a different client.
+- The client list changes (e.g., using `list` or `find`), causing the index to point to a different client.
 - The client's address is edited after copying.
   </box>
 
@@ -431,6 +431,7 @@ copyedit INDEX
 * If the client has notes, the copied command also includes `--notes=...`.
 * This is useful when you want to change a field with long or multiple values (e.g., tags, notes, ...) without retyping
   the rest.
+* If Linkline cannot access the clipboard, it shows an error instead of copying anything.
 
 Examples:
 
