@@ -1092,3 +1092,5 @@ Team size: 5
    duplicate or which client is affected. We plan to enhance it to show the duplicate field (phone or email), the name
    and index of the existing client, and a suggestion to use `list` if the duplicate is not visible in the current
    filtered view.
+8. **Repurpose the selection highlight:** The current highlight is a cosmetic leftover with no function. We plan to
+   repurpose it to provide useful feedback (e.g., indicating the most recently viewed client).
