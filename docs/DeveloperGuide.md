@@ -46,7 +46,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes `Main` and `MainApp`) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes `Main` and `MainApp`) is in charge of the app launch and shutdown.
 
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shutdown, it shuts down the other components and invokes cleanup methods where necessary.
@@ -1081,7 +1081,10 @@ Team size: 5
    This ensures `+65 9999 9999` and `9999 9999` are treated as duplicates, while `+66 9999 9999` remains distinct.
    We also plan to support a default country code (e.g., `setcountrycode 65`) so users can enter local numbers without
    typing `+65` every time.
-
 6. **Support multiple phone numbers per client:** Linkline currently stores only one phone number per client. We plan to
    extend phone number storage to support multiple numbers (e.g., mobile, home, office). As an interim workaround, users
    can store secondary numbers in the `notes` field.
+7. **Improve duplicate error messages:** The current duplicate error message does not specify which field caused the
+   duplicate or which client is affected. We plan to enhance it to show the duplicate field (phone or email), the name
+   and index of the existing client, and a suggestion to use `list` if the duplicate is not visible in the current
+   filtered view.

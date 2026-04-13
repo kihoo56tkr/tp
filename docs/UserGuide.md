@@ -635,9 +635,6 @@ previous Linkline home folder.
    primary screen, the GUI may open off-screen. Delete `preferences.json` before starting Linkline again.
 2. **If you minimize the Help Window** and then run `help` again, the original Help Window remains minimized and no new
    Help Window appears. Restore the minimized Help Window manually.
-3. **Duplicate error messages are not field-specific**. The error message does not tell users whether the duplicate was
-   caused by a matching phone number or email address. Users need to manually check existing clients to identify the
-   duplicate.
 
 --------------------------------------------------------------------------------------------------------------------
 
