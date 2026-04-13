@@ -818,7 +818,7 @@ Use case ends.
 * **Display log number**: The log number shown in the UI. It counts from oldest to newest even though log entries are displayed newest first.
 * **Mainstream OS**: Widely used operating systems such as Windows, macOS, and mainstream Linux distributions.
 * **Pending action**: A temporary confirmation state stored after the first execution of a destructive command such as `delete`, `clear`, `deletetag`, or `logdelete`.
-* **Selected client**: The client whose full details are currently shown in the details panel.
+* **Selected client**: The client whose full details are currently shown in the details pane.
 * **Service-location context**: Physical details about a client's service address, access instructions, precautions, or special requirements that matter during an on-site visit.
 * **Solo technician**: The primary target user of Linkline.
 
@@ -1104,3 +1104,7 @@ Team size: 5
    command. This update will include a `--matchall=` flag to allow users to toggle between 'any tag' and 'all tags'
    matching, providing a more intuitive and streamlined CLI experience while maintaining the underlying architectural
    integrity of the `Tag` entity.
+10. **Improve adaptive sizing for the Notes and Logs sections:** Linkline currently keeps the client detail panel usable
+   through wrapping and scrolling, but longer `notes` and `logs` content can still require more internal scrolling than
+   necessary on larger windows. We plan to let these sections use available vertical space more effectively as the app
+   window grows, while preserving usability and access to the full content on smaller windows.
