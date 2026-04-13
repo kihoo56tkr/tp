@@ -1080,7 +1080,15 @@ Team size: 5
    This ensures `+65 9999 9999` and `9999 9999` are treated as duplicates, while `+66 9999 9999` remains distinct.
    We also plan to support a default country code (e.g., `setcountrycode 65`) so users can enter local numbers without
    typing `+65` every time.
-
 6. **Support multiple phone numbers per client:** Linkline currently stores only one phone number per client. We plan to
    extend phone number storage to support multiple numbers (e.g., mobile, home, office). As an interim workaround, users
    can store secondary numbers in the `notes` field.
+7. **Consolidate search and filter logic into a unified `find` command:** Currently, `find` and `filtertag` exist as
+   separate commands. `filtertag` was originally implemented as a distinct component to reflect the architectural
+   decision to treat `Tags` as a first-class entity for a more OOP model. This allowed for the implementation of a
+   `UniqueTagList` and a `Tag` object, enabling global tag management actions like `renametag` and `deletetag`. However,
+   this separation now creates a command overlap where users must switch between `find` (for broad OR-matching across
+   general fields) and `filtertag` (for specific tag-set intersection). We plan to unify these into a single  find
+   command. This update will include a `--matchall=` flag to allow users to toggle between 'any tag' and 'all tags'
+   matching, providing a more intuitive and streamlined CLI experience while maintaining the underlying architectural
+   integrity of the `Tag` entity.
