@@ -127,7 +127,7 @@ The following constraints apply whenever these field values are entered in comma
 
 **Tip:** Linkline keeps the displayed client list sorted by name, then by phone number (by numeric digits only – spaces
 and hyphens are ignored). Whenever a command changes which clients are shown, whether by modifying data, resetting the
-list, or narrowing it, the displayed list remains sorted in that order.
+list, or narrowing it, the displayed client list remains sorted in that order.
 </box>
 
 ### Viewing help: `help`
@@ -313,10 +313,10 @@ Examples:
 
 ### Finding clients by details: `find`
 
-Searches the currently displayed list for clients whose name, phone number, email address, physical address, or tag
+Searches the currently displayed client list for clients whose name, phone number, email address, physical address, or tag
 matches at least one supplied query. Uses `OR` matching across all supplied queries and fields.
 
-`find` will only search based on the clients currently in the displayed list. \
+`find` will only search based on the clients currently in the displayed client list. \
 Both `find` and `filtertag` commands can be used to narrow down the current list. \
 
 Use `list` when you want to search from the full client list again.
@@ -358,10 +358,10 @@ Example result after a `find` command:
 
 ### Filtering clients by tag: `filtertag`
 
-Shows only clients in the currently displayed list whose tags satisfy the supplied tag filter. uses `AND` matching
+Shows only clients in the currently displayed client list whose tags satisfy the supplied tag filter. uses `AND` matching
 across all supplied queries and fields
 
-`filtertag` will only search based on the clients currently in the displayed list. \
+`filtertag` will only search based on the clients currently in the displayed client list. \
 Both `find` and `filtertag` commands can be used to narrow down the current list.
 
 Use `list` when you want to search from the full client list again.
@@ -454,8 +454,8 @@ the field you want, and then press Enter.
 
 **Warning:** The `copyedit` command copies the current **displayed index**, not the client's identity.
 
-- If you change the displayed list (e.g., using `list` or `find`) before running the pasted command, the index in the
-  copied command may now refer to a different client.
+- If you change the displayed client list (e.g., using `list` or `find`) before running the pasted command, the index
+  in the copied command may now refer to a different client.
 - If the client's details (e.g., name, phone, email) have been edited since copying, the copied command may contain
   outdated information.
 </box>
@@ -629,8 +629,17 @@ previous Linkline home folder.
 
 ## Known issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen and later switch to using only the primary screen, the GUI may open off-screen. Delete `preferences.json` before starting Linkline again.
-2. **If you minimize the Help Window** and then run `help` again, the original Help Window remains minimized and no new Help Window appears. Restore the minimized Help Window manually.
+1. **When using multiple screens**, if you move the application to a secondary screen and later switch to using only the
+   primary screen, the GUI may open off-screen. Delete `preferences.json` before starting Linkline again.
+2. **If you minimize the Help Window** and then run `help` again, the original Help Window remains minimized and no new
+   Help Window appears. Restore the minimized Help Window manually.
+3. **Selection highlight is cosmetic and has no function**. The highlight is a remnant of the original AB3 codebase and
+   does not control the details panel. The details panel updates based on commands like `view`, `add`, `edit`, `delete`,
+   etc. Clicking on the displayed client list has no effect. The highlight may shift unexpectedly after commands like
+   `edit`, `add`, or `list`, but this is harmless and does not affect functionality. For example, after editing a client
+   out of a filtered list, the highlight may move to another client, but this does not mean the highlighted client
+   should now be shown in the details panel. Future versions may remove or repurpose this highlight.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary

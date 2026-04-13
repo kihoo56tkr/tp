@@ -104,7 +104,7 @@ Linkline's UI is organized around a split-pane workflow:
   displayed index, name, and phone number.
 * `PersonDetailPanel` renders the currently selected client through `PersonDetailCard`, showing the full contact
   details, notes, tags, and service logs.
-* When no client is selected, the details pane shows a placeholder instead of a detail card.
+* When no client is selected, the details panel shows a placeholder instead of a detail card.
 
 The UI uses the JavaFX framework. The layout of each UI part is defined in a matching `.fxml` file under
 `src/main/resources/view`. For example, `MainWindow` is backed by `MainWindow.fxml`.
@@ -289,7 +289,7 @@ commands to share the same workflow. The sequence diagram in the Logic component
 ### Chained `find` and `filtertag`
 
 Linkline treats `find` and `filtertag` as incremental navigation commands. Instead of restarting from the full address
-book every time, each command further narrows the currently displayed list.
+book every time, each command further narrows the currently displayed client list.
 
 This is implemented in `ModelManager` using:
 
@@ -744,7 +744,7 @@ Use case ends.
 
 **Extensions**
 
-* 2a. The index given is invalid and does not point to a client in the displayed list.
+* 2a. The index given is invalid and does not point to a client in the displayed client list.
     * `Linkline` returns an error message informing the user that the index is invalid.<br>
     Use case ends.
 * 2b. The log message is missing or invalid according to the feature specification.
@@ -799,8 +799,9 @@ Use case ends.
 
 * **Client / Person**: The primary entity in Linkline. Mandatory fields include Name, Phone, Email, and Address. Optional fields include Tags, Notes, and service logs.
 * **CLI (Command Line Interface)**: A text-based interface where the user interacts with the application by typing commands rather than using a mouse.
-* **Compact view**: The left-pane summary view that shows a concise list of clients for quick scanning.
-* **Displayed list**: The subset of clients currently shown after commands such as `list`, `find`, or `filtertag`.
+* **Compact view**: The left-panel summary view that shows a concise list of clients for quick scanning.
+* **Details panel**: The right-panel in the main window that displays the full details of a selected client (name, phone, email, address, notes, tags and logs).
+* **Displayed client list**: The subset of clients currently shown after commands such as `list`, `find`, or `filtertag`.
 * **Duplicate client**: Two clients considered the same because they share the same normalized phone number or case-insensitive email address.
 * **Full view**: The detailed view that shows all available information for the currently selected client.
 * **JSON (JavaScript Object Notation)**: The text-based format used by the Storage component to persist data on disk.
@@ -808,7 +809,7 @@ Use case ends.
 * **Display log number**: The log number shown in the UI. It counts from oldest to newest even though log entries are displayed newest first.
 * **Mainstream OS**: Widely used operating systems such as Windows, macOS, and mainstream Linux distributions.
 * **Pending action**: A temporary confirmation state stored after the first execution of a destructive command such as `delete`, `clear`, `deletetag`, or `logdelete`.
-* **Selected client**: The client whose full details are currently shown in the details pane.
+* **Selected client**: The client whose full details are currently shown in the details panel.
 * **Service-location context**: Physical details about a client's service address, access instructions, precautions, or special requirements that matter during an on-site visit.
 * **Solo technician**: The primary target user of Linkline.
 
@@ -877,24 +878,24 @@ Removing or renaming optional fields such as `notes`, `logs`, or `tags` may stil
 
 </box>
 
-### Navigating and narrowing the displayed list
+### Navigating and narrowing the displayed client list
 
 1. Finding and filtering clients
 
     1. Prerequisites: Fresh launch with the built-in sample data.
 
     1. Test case: `find --name=Alex`<br>
-       Expected: Only `Alex Yeoh` remains in the displayed list.
+       Expected: Only `Alex Yeoh` remains in the displayed client list.
 
     1. Test case: `list` followed by `find --tag=Plumb`<br>
-       Expected: Only `Bernice Yu` and `Charlotte Oliveiro` remain in the displayed list.
+       Expected: Only `Bernice Yu` and `Charlotte Oliveiro` remain in the displayed client list.
 
     1. Test case: `list` followed by `find --name=Alex --tag=Plumbing`<br>
        Expected: `Alex Yeoh`, `Bernice Yu`, and `Charlotte Oliveiro` are shown because a single `find` command
        matches any supplied field.
 
     1. Test case: `list` followed by `find --tag=`<br>
-       Expected: The displayed list becomes empty because the built-in sample data has no untagged clients.
+       Expected: The displayed client list becomes empty because the built-in sample data has no untagged clients.
 
     1. Test case: `list` followed by `filtertag --tag=Plumbing --tag=Electrical Wiring`<br>
        Expected: Only `Bernice Yu` is shown because `filtertag` requires all specified tags to be present.
@@ -914,7 +915,7 @@ Removing or renaming optional fields such as `notes`, `logs`, or `tags` may stil
 
     1. Test case: `find --name=Alex` followed by `view 1` followed by `filtertag --tag=Plumbing`<br>
        Expected: After `view 1`, `Alex Yeoh` is shown in the right-hand panel. After
-       `filtertag --tag=Plumbing`, the displayed list becomes empty and the right-hand panel returns to its placeholder
+       `filtertag --tag=Plumbing`, the displayed client list becomes empty and the right-hand panel returns to its placeholder
        state because the previously selected client is no longer shown.
 
 ### Adding, copying, and editing clients
@@ -923,7 +924,7 @@ Removing or renaming optional fields such as `notes`, `logs`, or `tags` may stil
 
     1. Test case:
        `add --name=Ethan Lim --phone=97861234 --email=ethanlim@example.com --address=Blk 123 Tampines Street 11, #08-12 --notes=Gate code 2048 --tag=Plumbing`<br>
-       Expected: Success message shown. `Ethan Lim` appears in the displayed list in sorted order.
+       Expected: Success message shown. `Ethan Lim` appears in the displayed client list in sorted order.
 
     1. Test case:
        `add --name=Alex Clone --phone=8743 8807 --email=alex.clone@example.com --address=Blk 9 Test Road`<br>
@@ -981,7 +982,7 @@ Removing or renaming optional fields such as `notes`, `logs`, or `tags` may stil
        Expected: `help` cancels the pending clear action and opens the help window.
 
     1. Test case: `clear` then `clear`<br>
-       Expected: All clients are removed and the displayed list becomes empty.
+       Expected: All clients are removed and the displayed client list becomes empty.
 
 ### Working with service logs
 
