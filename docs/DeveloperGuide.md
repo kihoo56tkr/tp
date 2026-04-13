@@ -1095,3 +1095,12 @@ Team size: 5
    filtered view.
 8. **Repurpose the selection highlight**: The current highlight is a cosmetic leftover with no function. We plan to
    repurpose it to provide useful feedback (e.g., indicating the most recently viewed client).
+9. **Consolidate search and filter logic into a unified `find` command:** Currently, `find` and `filtertag` exist as
+   separate commands. `filtertag` was originally implemented as a distinct component to reflect the architectural
+   decision to treat `Tags` as a first-class entity for a more OOP model. This allowed for the implementation of a
+   `UniqueTagList` and a `Tag` object, enabling global tag management actions like `renametag` and `deletetag`. However,
+   this separation now creates a command overlap where users must switch between `find` (for broad OR-matching across
+   general fields) and `filtertag` (for specific tag-set intersection). We plan to unify these into a single  find
+   command. This update will include a `--matchall=` flag to allow users to toggle between 'any tag' and 'all tags'
+   matching, providing a more intuitive and streamlined CLI experience while maintaining the underlying architectural
+   integrity of the `Tag` entity.
