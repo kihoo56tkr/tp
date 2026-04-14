@@ -376,7 +376,7 @@ Linkline uses separate persistence policies for address book data and user prefe
 * If such a save fails after the in-memory model has already changed, `LogicManager` records that unsaved address book
   changes are still present.
 * A later successful address book save clears that unsaved state.
-* On graceful shutdown, `MainApp.stop()` makes one best-effort retry only if that unsaved state is still present. Failing of which, it logs the failure and exits without further retries (i.e., the file is not saved).
+* On graceful shutdown, `MainApp.stop()` makes one best-effort retry only if that unsaved state is still present. If that retry also fails, it logs the failure and exits without further retries (i.e., the file is not saved).
 
 #### User preferences
 
@@ -1045,7 +1045,7 @@ Removing or renaming optional fields such as `notes`, `logs`, or `tags` may stil
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Effort**
-This project extends the AddressBook-Level 3 (AB3) codebase into Linkline, a client management system tailored for solo service technicians. While AB3 serves as a simple contact manager, Linkline introduces domain-specific features such as service logs, confirmation flows and corrupted file handling.
+This project extends the AddressBook-Level 3 (AB3) codebase into Linkline, a client management system tailored for solo residential service technicians. While AB3 serves as a simple contact manager, Linkline introduces domain-specific features such as service logs, confirmation flows and corrupted file handling.
 
 ### Challenges
 

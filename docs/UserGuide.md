@@ -518,9 +518,10 @@ logdelete CLIENT_INDEX LOG_INDEX
 
 Examples:
 
-* `logdelete 3 1` followed by `find --name=Bernice`
+* `logdelete 2 1` followed by `find --name=Bernice`
     * The pending deletion is canceled by the `find` command.
 * Continuing from the earlier `logadd 3 ...` example: `logdelete 3 1`
+    * After that earlier `logadd`, client `3` has one log, so `logdelete 3 1` is valid.
     * Shows confirmation message for deleting log `1` of client `3`.
     * If you enter `logdelete 3 1` again, the corresponding log is deleted.
 
